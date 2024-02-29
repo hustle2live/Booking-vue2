@@ -1,6 +1,5 @@
-# Booking-test task vue2
-Booking-test-task-VueJs
-
+# Booking Calaendar (Vue2)
+This is a test task developing with modern Framework VueJS
 ## 
 
 ##### Clone Repository and install application with `npm install` command
@@ -13,3 +12,4 @@ Go to the browser
 ➜  Local:   http://localhost:5173/
 ➜  Network: use --host to expose
 
+## 
