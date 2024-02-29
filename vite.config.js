@@ -15,6 +15,7 @@ export default defineConfig({
       additionalLegacyPolyfills: ['regenerator-runtime/runtime']
     })
   ],
+  base: "/Booking-vue2/",
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
