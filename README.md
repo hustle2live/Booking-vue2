@@ -1,8 +1,8 @@
 # Booking Calendar (Vue2)
-This is a test task developing with modern Framework VueJS
-## 
-### View DEMO 
-#### View build release on my `gh-pages` - following the link [ ➜ DEMO](https://hustle2live.github.io/Booking-vue2/)
+- This is a test task developing with modern Framework VueJS
+
+## View DEMO 
+### View build release on my `gh-pages` - following the link [ ➜ DEMO](https://hustle2live.github.io/Booking-vue2/)
 
 ## How To Install
 ####
@@ -12,7 +12,7 @@ This is a test task developing with modern Framework VueJS
 - Follow the instructions in VSCode and go to the browser ➜ Local:   http://localhost:5173/
 ## 
 
-### Test Task Description 
+## Task Description 
 ⦁	Vue 2: Use Vue.js to create the components and manage the UI.
 ⦁	Vuex: Utilize Vuex for state management to handle the reservations data and navigation state.
 #### ⦁	Calendar Display:
@@ -34,5 +34,5 @@ This is a test task developing with modern Framework VueJS
 ⦁	Documentation and Repository Credentials:
 ⦁	Provide a short documentation file (README.md) in the repository that includes instructions on how to set up and run the project.
 ⦁	Include credentials or access details for the Git repository in your submission.
-####
+##
 
