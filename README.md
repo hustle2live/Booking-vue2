@@ -4,13 +4,13 @@
 ## View DEMO 
 ### View build release on my `gh-pages` - following the link [ ➜ DEMO](https://hustle2live.github.io/Booking-vue2/)
 
-## How To Install
 ####
+## How To Install
 - Clone Repository 
 - install application with `npm install` command
 - To start the application type `npm run dev` in VSCode console  
 - Follow the instructions in VSCode and go to the browser ➜ Local:   http://localhost:5173/
-## 
+
 
 ## Task Description 
 ⦁	Vue 2: Use Vue.js to create the components and manage the UI.
