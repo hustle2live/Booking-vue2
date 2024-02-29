@@ -10,18 +10,14 @@
 </template>
 
 <script>
-import ListBookingComponent from './components/ListBookingComponent.vue'
 import HeaderComponent from './components/HeaderComponent.vue'
-import CounterComponent from './components/CounterComponent.vue'
 import BookingListComponent from './components/BookingListComponent.vue'
 
 
 export default {
   name: 'app',
   components: {
-    ListBookingComponent,
     HeaderComponent,
-    CounterComponent,
     BookingListComponent
   }
 }

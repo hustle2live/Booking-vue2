@@ -11,10 +11,8 @@
   </div>
 </template>
 
-
 <script>
 import ChevronBack from "./icons/IconChevronBack.vue"
-import CounterComponent from "./CounterComponent.vue"
 
 export default {
   data() {
@@ -23,7 +21,6 @@ export default {
   },
   components: {
     ChevronBack,
-    CounterComponent
   },
   computed: {
     date() { return this.$store.state.date.toISOString().slice(0, 10) },
