@@ -1,4 +1,4 @@
-# Booking Calaendar (Vue2)
+# Booking Calendar (Vue2)
 This is a test task developing with modern Framework VueJS
 ## 
 
