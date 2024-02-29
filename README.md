@@ -1,8 +1,7 @@
 # Booking Calendar (Vue2)
 - This is a test task developing with modern Framework VueJS
 
-##
-VIEW DEMO 
+## VIEW DEMO 
 ### View build release on my `gh-pages` - following the link [ ➜ DEMO](https://hustle2live.github.io/Booking-vue2/)
 
 ####
