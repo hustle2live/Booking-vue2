@@ -49,13 +49,12 @@ import PopUp from './PopUp.vue';
 export default {
     data() {
         return {
-            newTask: "",
             months: ["January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"],
             week: Array(7),
             openPopup: false,
             clientBookData: false,
-            clickTarget: { x: 0, y: 0 }
+            clickTarget: { x: 0, y: 0 },
         }
     },
     computed: {
