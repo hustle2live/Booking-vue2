@@ -42,6 +42,7 @@ export default {
             },
         }
     },
+
     computed: {
         coordXY: function () {
             this.coordinates.x = this.coord.x

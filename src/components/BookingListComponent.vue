@@ -17,23 +17,20 @@
                     <th scope="row">{{ room }}</th>
                     <td v-for="day in week" :date=day v-bind:class="isToday(day) ? 'today cell' : 'cell'">
 
-                        <span class="reserved-start" v-if="hasClientReserveFrom(room, day)"
-                            v-bind:data="hasClientReserveFrom(room, day)"
+                        <span v-if="getBookIdStart(room, day)" class="reserved-start"
                             v-bind:style="'width:' + Number(getColspanNumber(room, day) - 2) + '80%'"
-                            @click="(e) => showPopup(getClientsData(hasClientReserveFrom(room, day)), e)">
-
-                            <span class="clientName">{{ getClientsName(hasClientReserveFrom(room, day)) }}
+                            v-bind:data="getBookIdStart(room, day)" @click="showPopup">
+                            <span class="clientName">{{ getClientsName(getBookIdStart(room, day)) }}
                             </span>
                         </span>
 
-                        <span v-else-if="hasClientReserveMid(room, day)" v-bind:data="hasClientReserveMid(room, day)"
-                            class="reserved" @click="(e) => showPopup(getClientsData(hasClientReserveMid(room, day)), e)">
-                            <span class="clientName">{{ getClientsName(hasClientReserveMid(room, day)) }}</span>
+                        <span v-else-if="getBookIdMid(room, day)" class="reserved" v-bind:data="getBookIdMid(room, day)"
+                            @click="showPopup">
+                            <span class="clientName">{{ getClientsName(getBookIdMid(room, day)) }}</span>
                         </span>
 
-                        <span v-if="hasClientReserveTo(room, day)" v-bind:data="hasClientReserveTo(room, day)"
-                            class="reserved-end"
-                            @click="(e) => showPopup(getClientsData(hasClientReserveTo(room, day)), e)">
+                        <span v-if="getBookIdEnd(room, day)" class="reserved-end" v-bind:data="getBookIdEnd(room, day)"
+                            @click="showPopup">
                         </span>
 
                     </td>
@@ -139,7 +136,7 @@ export default {
             return cellDate === currentDate
         },
 
-        hasClientReserveFrom: function (roomName, cellDate) {
+        getBookIdStart: function (roomName, cellDate) {
             const roomReservationsArray = this.setAllDatesRoomName(roomName)[roomName]
             let client = ''
             roomReservationsArray.forEach(contract => {
@@ -147,7 +144,7 @@ export default {
             });
             return this.strFrom(client.id)
         },
-        hasClientReserveTo: function (roomName, cellDate) {
+        getBookIdEnd: function (roomName, cellDate) {
             const roomReservationsArray = this.setAllDatesRoomName(roomName)[roomName]
             let client = ''
             roomReservationsArray.forEach(contract => {
@@ -155,7 +152,7 @@ export default {
             });
             return this.strFrom(client.id)
         },
-        hasClientReserveMid: function (roomName, cellDate) {
+        getBookIdMid: function (roomName, cellDate) {
             const roomReservationsArray = this.setAllDatesRoomName(roomName)[roomName]
             let client = ''
             roomReservationsArray.forEach(contract => {
@@ -215,13 +212,13 @@ export default {
         },
 
         getClientsData: function (clientsId) {
-            const data = this.$store.getters.getBookingDataById(clientsId)
+            const data = this.$store.getters.getBookDataById(clientsId)
             return data
         },
 
         getColspanNumber: function (room, day) {
-            if (this.hasClientReserveFrom(room, day)) {
-                const reserve = this.hasClientReserveFrom(room, day)
+            if (this.getBookIdStart(room, day)) {
+                const reserve = this.getBookIdStart(room, day)
                 const reserveData = this.getClientsData(reserve)
                 const longTerm = reserveData.allDates.length || 0
                 return longTerm
@@ -229,21 +226,25 @@ export default {
             return 0
         },
 
-        showPopup: function (info = null, e = null) {
+        showPopup: function (e) {
+            const id = e.currentTarget.getAttribute('data')
+            const clientData = this.getClientsData(id)
+
             const coord = e && e.screenX ? {
                 x: e.screenX,
                 y: e.screenY,
             } : this.clickTarget
 
-            if (!this.openPopup && info) {
+            if (!this.openPopup && clientData) {
                 this.openPopup = true
-                this.clientBookData = info
+                this.clientBookData = clientData
                 this.clickTarget = coord
             } else if (this.openPopup) {
                 this.openPopup = false
                 this.clientBookData = null
             }
-        }
+        },
+
     },
     components: {
         PopUp,

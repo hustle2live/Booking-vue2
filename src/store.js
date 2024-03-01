@@ -47,7 +47,7 @@ const store = new Vuex.Store({
          const contract = state.bookings.find((item) => item.id.toString() === propId);
          return contract ? contract.name : null;
       },
-      getBookingDataById: (state) => (propId) => {
+      getBookDataById: (state) => (propId) => {
          const contract = state.bookings.find((item) => item.id.toString() === propId);
          return contract ? contract : null;
       },
