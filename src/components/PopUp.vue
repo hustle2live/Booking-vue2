@@ -86,7 +86,7 @@ export default {
 <style>
 .popup-wrapper {
     display: block;
-    position: fixed;
+    position: absolute;
     transform: translate(-50%, -50%);
     z-index: 2;
 }
