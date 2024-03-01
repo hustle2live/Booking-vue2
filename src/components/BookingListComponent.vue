@@ -3,25 +3,19 @@
 <template>
     <div class="container">
         {{ renderCalendarWeek }}
-
         <table>
-            <!-- <caption>
-                {{ currentMonthName + ', ' + currentYearCount }}
-            </caption> -->
             <thead>
                 <tr>
                     <th class="name" scope="col"></th>
-                    <th v-for="days in week" class="head">
-                        <span v-if="isToday(days)" class="today">{{ days }} </span>
-                        <span v-else>{{ days }} </span>
+                    <th v-for="day in week" v-bind:class="isToday(day) ? 'today head' : 'head'">
+                        <span>{{ day }} </span>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <!-- <td v-for="day in week" :date=day v-bind:class="addClassName(room, day)">{{ day }} <br /> -->
                 <tr v-for="room in hotelRoomsList">
                     <th scope="row">{{ room }}</th>
-                    <td v-for="day in week" :date=day class="cell">
+                    <td v-for="day in week" :date=day v-bind:class="isToday(day) ? 'today cell' : 'cell'">
 
                         <span class="reserved-start" v-if="hasClientReserveFrom(room, day)"
                             v-bind:data="strFrom(hasClientReserveFrom(room, day))"
@@ -137,7 +131,6 @@ export default {
             }
             return
         },
-
     },
 
     methods: {
@@ -270,13 +263,19 @@ export default {
 .today {
     border: 1px solid rgba(0, 0, 255, 0.247);
     padding: 10px;
-    color: blue
+    background-color: rgba(104, 255, 10, 0.094);
 }
 
+.today.head {
+    color: #0000009a;
+}
+
+
 th.head {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.359);
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.58);
     height: min-content;
+    padding: 6px 2px;
 }
 
 table {
@@ -307,8 +306,6 @@ thead tr th.name {
 tbody th,
 tbody tr,
 tbody td {
-    /* height: 100px; */
-    /* min-width: 120px; */
     height: 40px;
     min-width: 80px;
 }
@@ -351,10 +348,8 @@ td span.reserved-end {
 }
 
 td span.reserved-start {
-    /* border-radius: 12px 0 0 12px; */
     border-radius: 12px;
     left: unset;
-    /* right: 0; */
     left: 60%;
     overflow: visible;
     z-index: 1;
@@ -363,7 +358,6 @@ td span.reserved-start {
 
 .clientName {
     position: absolute;
-    /* right: 50%; */
     left: 0;
     bottom: 20%;
     text-align: center;
@@ -380,7 +374,7 @@ td {
 
 tbody th {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     color: rgb(11, 186, 110);
     font-weight: 600;
