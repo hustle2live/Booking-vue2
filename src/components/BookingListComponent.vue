@@ -18,23 +18,22 @@
                     <td v-for="day in week" :date=day v-bind:class="isToday(day) ? 'today cell' : 'cell'">
 
                         <span class="reserved-start" v-if="hasClientReserveFrom(room, day)"
-                            v-bind:data="strFrom(hasClientReserveFrom(room, day))"
+                            v-bind:data="hasClientReserveFrom(room, day)"
                             v-bind:style="'width:' + Number(getColspanNumber(room, day) - 2) + '80%'"
-                            @click="(e) => showPopup(getClientsData(strFrom(hasClientReserveFrom(room, day))), e)">
+                            @click="(e) => showPopup(getClientsData(hasClientReserveFrom(room, day)), e)">
 
-                            <span class="clientName">{{ getClientsName(strFrom(hasClientReserveFrom(room, day))) }}
+                            <span class="clientName">{{ getClientsName(hasClientReserveFrom(room, day)) }}
                             </span>
                         </span>
 
-                        <span v-else-if="hasClientReserveMid(room, day)"
-                            v-bind:data="strFrom(hasClientReserveMid(room, day))" class="reserved"
-                            @click="(e) => showPopup(getClientsData(strFrom(hasClientReserveMid(room, day))), e)">
-                            <span class="clientName">{{ getClientsName(strFrom(hasClientReserveMid(room, day))) }}</span>
+                        <span v-else-if="hasClientReserveMid(room, day)" v-bind:data="hasClientReserveMid(room, day)"
+                            class="reserved" @click="(e) => showPopup(getClientsData(hasClientReserveMid(room, day)), e)">
+                            <span class="clientName">{{ getClientsName(hasClientReserveMid(room, day)) }}</span>
                         </span>
 
-                        <span v-if="hasClientReserveTo(room, day)" v-bind:data="strFrom(hasClientReserveTo(room, day))"
+                        <span v-if="hasClientReserveTo(room, day)" v-bind:data="hasClientReserveTo(room, day)"
                             class="reserved-end"
-                            @click="(e) => showPopup(getClientsData(strFrom(hasClientReserveTo(room, day))), e)">
+                            @click="(e) => showPopup(getClientsData(hasClientReserveTo(room, day)), e)">
                         </span>
 
                     </td>
@@ -142,27 +141,27 @@ export default {
 
         hasClientReserveFrom: function (roomName, cellDate) {
             const roomReservationsArray = this.setAllDatesRoomName(roomName)[roomName]
-            let client = false
+            let client = ''
             roomReservationsArray.forEach(contract => {
                 if (contract.start.includes(cellDate)) { client = contract }
             });
-            return client.id
+            return this.strFrom(client.id)
         },
         hasClientReserveTo: function (roomName, cellDate) {
             const roomReservationsArray = this.setAllDatesRoomName(roomName)[roomName]
-            let client = false
+            let client = ''
             roomReservationsArray.forEach(contract => {
                 if (contract.end.includes(cellDate)) { client = contract }
             });
-            return client.id
+            return this.strFrom(client.id)
         },
         hasClientReserveMid: function (roomName, cellDate) {
             const roomReservationsArray = this.setAllDatesRoomName(roomName)[roomName]
-            let client = false
+            let client = ''
             roomReservationsArray.forEach(contract => {
                 if (!contract.start.includes(cellDate) && !contract.end.includes(cellDate) && contract.allDates.includes(cellDate)) { client = contract }
             });
-            return client.id
+            return this.strFrom(client.id)
         },
 
         setAllDatesRoomName: function (room) {
@@ -223,8 +222,7 @@ export default {
         getColspanNumber: function (room, day) {
             if (this.hasClientReserveFrom(room, day)) {
                 const reserve = this.hasClientReserveFrom(room, day)
-                const reserveString = this.strFrom(reserve)
-                const reserveData = this.getClientsData(reserveString)
+                const reserveData = this.getClientsData(reserve)
                 const longTerm = reserveData.allDates.length || 0
                 return longTerm
             }
