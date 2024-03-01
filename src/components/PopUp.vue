@@ -110,7 +110,7 @@ p {
 
 .name {
     font-size: 22px;
-    font-size: 800;
+    font-weight: 600;
     margin: 10px 0;
 }
 
@@ -154,7 +154,7 @@ p {
     padding: 4px 12px;
     background: rgba(16, 16, 82, 0.596);
     color: #ffffff;
-    font-size: 18;
+    font-size: 14px;
     font-weight: 400;
     border-radius: 5px;
     border: 2px solid rgba(16, 16, 82, 0.50);
