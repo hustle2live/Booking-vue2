@@ -197,7 +197,7 @@ export default {
         },
 
         nextDate(payload = this.date) {
-            const tomorrowDate = this.$store.state.getNextDate(payload)
+            const tomorrowDate = this.$store.getters.getNextDate(payload)
             return tomorrowDate
         },
 
@@ -263,10 +263,6 @@ export default {
 
 
 <style>
-/* .container {
-    position: relative;
-} */
-
 .cell {
     background-color: #fff;
 }

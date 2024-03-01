@@ -6,19 +6,59 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
    state: {
-      count: 11,
-      initialCount: 0,
-      item: 'potato',
       date: new Date(),
       bookings: Data,
-      getNextDate: function (action) {
+      maxDuration: 20
+   },
+   mutations: {
+      setToday: (state) => {
+         state.date = new Date();
+      },
+
+      setNextDate: function (state) {
+         const nextDate = this.getters.getNextDate(state.date);
+         state.date = nextDate;
+      },
+
+      setPrevDate: (state) => {
+         let startDate = state.date;
+         let currentDate = startDate;
+         let currentDay = +currentDate.toISOString().slice(8, 10);
+         let currentMonth = currentDate.getMonth();
+         let currentYear = currentDate.getFullYear();
+         const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+
+         let nextDay = currentDay - 1;
+         if (nextDay < 0) {
+            currentMonth = currentMonth - 1;
+            if (currentMonth < 0) {
+               currentMonth = 11;
+               currentYear = currentYear - 1;
+            }
+            nextDay = daysInMonth(currentYear, currentMonth);
+         }
+
+         const nextDate = new Date(currentYear, currentMonth, nextDay, 14);
+         state.date = nextDate;
+      }
+   },
+   getters: {
+      getNameById: (state) => (propId) => {
+         const contract = state.bookings.find((item) => item.id.toString() === propId);
+         return contract ? contract.name : null;
+      },
+      getBookingDataById: (state) => (propId) => {
+         const contract = state.bookings.find((item) => item.id.toString() === propId);
+         return contract ? contract : null;
+      },
+      getNextDate: () => (propDate) => {
          try {
-            const currentDate = typeof action === 'string' ? new Date(action) : action;
+            const currentDate = typeof propDate === 'string' ? new Date(propDate) : propDate;
             let currentDay = +currentDate.toISOString().slice(8, 10);
             let currentMonth = currentDate.getMonth();
             let currentYear = currentDate.getFullYear();
 
-            const daysInMonth = (year = currentYear, month = currentMonth) => new Date(year, month + 1, 0).getDate();
+            const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
 
             let nextDay = currentDay + 1;
             if (nextDay > daysInMonth(currentYear, currentMonth)) {
@@ -35,55 +75,7 @@ const store = new Vuex.Store({
          } catch (error) {
             console.log(error);
          }
-      },
-      maxDuration: 20
-   },
-   mutations: {
-      setToday: (state) => {
-         state.date = new Date();
-      },
-
-      setNextDate: function (state) {
-         let startDate = state.date;
-         state.date = state.getNextDate(startDate);
-      },
-
-      setPrevDate: (state) => {
-         let startDate = state.date;
-         let currentDate = startDate;
-         let currentDay = +currentDate.toISOString().slice(8, 10);
-         let currentMonth = currentDate.getMonth();
-         let currentYear = currentDate.getFullYear();
-         const daysInMonth = (year = currentYear, month = currentMonth) => new Date(year, month + 1, 0).getDate();
-
-         let nextDay = currentDay - 1;
-         if (nextDay < 0) {
-            currentMonth = currentMonth - 1;
-            if (currentMonth < 0) {
-               currentMonth = 11;
-               currentYear = currentYear - 1;
-            }
-            nextDay = daysInMonth(currentYear, currentMonth);
-         }
-
-         const nextDate = new Date(currentYear, currentMonth, nextDay, 14);
-         state.date = nextDate;
-      },
-      increment: (state) => state.count++,
-      decrement: (state) => state.count--,
-      initial: (state) => {
-         state.count = state.initialCount;
       }
-   },
-   getters: {
-      getNameById: (state) => (propId) => {
-         const contract = state.bookings.find((item) => item.id.toString() === propId);
-         return contract ? contract.name : null;
-      },
-      getBookingDataById: (state) => (propId) => {
-         const contract = state.bookings.find((item) => item.id.toString() === propId);
-         return contract ? contract : null;
-      },
    },
    methods: {}
 });
