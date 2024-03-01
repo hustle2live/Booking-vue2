@@ -360,7 +360,7 @@ td span.reserved-start {
     bottom: 20%;
     text-align: center;
     width: 100%;
-    z-index: 0;
+    z-index: 1;
     white-space: nowrap;
 }
 
